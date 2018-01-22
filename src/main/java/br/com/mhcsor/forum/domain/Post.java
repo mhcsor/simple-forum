@@ -1,9 +1,13 @@
 package br.com.mhcsor.forum.domain;
 
+import org.hibernate.validator.constraints.NotBlank;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.NotNull;
+import java.sql.Timestamp;
 import java.util.List;
 
 @Entity
@@ -15,9 +19,11 @@ public class Post {
 
     private String owner;
 
-    private String title;
+    @NotNull
+    @NotBlank
+    private String topic;
 
-    private String text;
+    private Timestamp lastModified;
 
     @OneToMany
     private List<Comment> comments;
@@ -39,19 +45,11 @@ public class Post {
     }
 
     public String getTitle() {
-        return title;
+        return topic;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getText() {
-        return text;
-    }
-
-    public void setText(String text) {
-        this.text = text;
+    public void setTitle(String topic) {
+        this.topic = topic;
     }
 
     public List<Comment> getComments() {
@@ -60,5 +58,21 @@ public class Post {
 
     public void setComments(List<Comment> comments) {
         this.comments = comments;
+    }
+
+    public String getTopic() {
+        return topic;
+    }
+
+    public void setTopic(String topic) {
+        this.topic = topic;
+    }
+
+    public Timestamp getLastModified() {
+        return lastModified;
+    }
+
+    public void setLastModified(Timestamp lastModified) {
+        this.lastModified = lastModified;
     }
 }

@@ -1,6 +1,11 @@
 package br.com.mhcsor.forum.domain;
 
+import org.hibernate.validator.constraints.NotBlank;
+
 import javax.persistence.*;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.NotNull;
+import java.sql.Timestamp;
 import java.util.Collection;
 
 @Entity
@@ -16,8 +21,12 @@ public class Comment {
     @OneToMany(mappedBy = "parent")
     private Collection<Comment> children;
 
+    private Timestamp lastModified;
+
     private String owner;
 
+    @NotNull
+    @NotBlank
     private String text;
 
     public Integer getId() {
@@ -58,5 +67,13 @@ public class Comment {
 
     public void setText(String text) {
         this.text = text;
+    }
+
+    public Timestamp getLastModified() {
+        return lastModified;
+    }
+
+    public void setLastModified(Timestamp lastModified) {
+        this.lastModified = lastModified;
     }
 }
